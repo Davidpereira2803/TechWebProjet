@@ -1,0 +1,33 @@
+{% extends "empty_page.html" %}
+
+{% block content %}
+
+<header>
+
+    <nav>
+
+        <ul>
+    
+            <li> <a href = "{% url 'home' %}"> Accueil </a> </li>
+            <li> <a href = "{% url 'menu' %}"> Menu </a> </li>
+            <li> <a href = "{% url 'book_table' %}"> Réserver une table </a> </li>
+            <li> <a href = "{% url 'order' %}"> Commander </a> </li>
+            <li> <a href = "{% url 'login' %}"> Compte </a> </li>
+    
+        </ul>
+    
+    </nav>
+
+</header>
+
+<div class = "container"> 
+
+    <h1> Bienvenue au Coin de Namur </h1>
+
+    <p> Situé au cœur de la ville, Le Coin de Namur incarne l'essence même de la brasserie belge authentique.  Notre établissement vous accueille dans un cadre chaleureux et rustique, où vous pourrez savourer une cuisine traditionnelle belge raffinée. </p>
+    <p> De nos moules-frites aux carbonnades flamandes en passant par nos délicieuses gaufres, chaque plat est préparé avec soin pour vous offrir une expérience culinaire inoubliable.  </p>  
+    <p> Notre large sélection de bières belges artisanales complète à merveille votre repas, tandis que notre équipe attentionnée veille à ce que votre visite soit des plus agréables.  </p>
+
+</div>
+
+{% endblock %}
