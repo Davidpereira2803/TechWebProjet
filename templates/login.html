@@ -2,4 +2,32 @@
 
 {% block content %}
 
+<h1> Se connecter </h1>
+
+<form action = "/submit_connexion" method = "post">
+
+    <label for = "mail"> Adresse e-mail : </label>
+    <input type = "text" id = "mail" name = "mail" required> <br>
+
+    <label for = "mot de passe"> Mot de passe : </label>
+    <input type = "text" id = "mot de passe" name = "mot de passe" required> <br>
+
+    <input type = "submit" value = "Se connecter">
+
+</form>
+
+<h1> Créer un compte </h1>
+
+<form action = "/submit_inscription" method = "post">
+
+    <label for = "mail"> Adresse e-mail : </label>
+    <input type = "text" id = "mail" name = "mail" required> <br>
+
+    <label for = "mot de passe"> Mot de passe : </label>
+    <input type = "text" id = "mot de passe" name = "mot de passe" required> <br>
+
+    <input type = "submit" value = "Créer un compte">
+
+</form>
+
 {% endblock %}
