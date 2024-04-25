@@ -1,7 +1,11 @@
-from fastapi import APIRouter, HTTPException, Request, status
-from fastapi.response import RedirectResponse
+from fastapi import APIRouter, HTTPException, Request, status, Depends
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
+
+from app_management.user_login import manager
+from app_management.schema.user import UserSchema 
+
 
 user_router = APIRouter(prefix = "/users")
 templates = Jinja2Templates(directory = "templates")
