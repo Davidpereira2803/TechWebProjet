@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Login</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="login-container">
         <h2>Staff Login</h2>
-        <form action="/login" method="POST">
+        <form action="/login">
             <div class="input-group">
-                <label for="username">Username:</label>
+                <label for="username">your Staff login:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">
-                <label for="password">Password:</label>
+                <label for="password">your Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Login</button>
