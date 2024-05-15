@@ -12,4 +12,11 @@ class DishSchema(BaseModel):
     dishid: int
     dishname: str
     dishtype: str
-    price: str
+    price: int
+
+class Order(BaseModel):
+    orderid: int
+    clientid: int
+    dishes: str
+    orderprice: int
+    complete: bool
