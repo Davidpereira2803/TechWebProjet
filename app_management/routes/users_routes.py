@@ -27,14 +27,14 @@ def ask_to_add_new_user(request: Request):
     )
 
 @user_router.post('/new/user')
-def create_new_user(firstname: Annotated[str, Form()]):
+def create_new_user(firstname: Annotated[str, Form()], name: Annotated[str, Form()], email: Annotated[str, Form()], password: Annotated[str, Form()],):
     user = {
         'firstname': firstname,
-        'name': "nn",
+        'name': name,
         'id': 0,
-        'email': "dd",
-        'password': "kk",
-        'role': "dnnd",
+        'email': email,
+        'password': password,
+        'role': "client"
     }
 
     try:
@@ -47,3 +47,58 @@ def create_new_user(firstname: Annotated[str, Form()]):
         )
     users_services.add_new_user(new_user)
     return RedirectResponse(url='/account', status_code=302)
+
+@user_router.post('/change/password')
+def change_password(current_password: Annotated[str, Form()], new_password: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
+    users_services.change_password(current_password, new_password, user.email)
+    return RedirectResponse(url="/menu", status_code=302)
+
+@user_router.post('/change/user/information')
+def change_user_information(new_firstname: Annotated[str, Form()], new_name: Annotated[str, Form()], new_email: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
+    users_services.change_user_information(new_firstname, new_name, new_email, user.email)
+    return RedirectResponse(url="/menu", status_code=302)
+
+
+@user_router.get('/home')
+def get_home_page(request: Request):
+    return templates.TemplateResponse(
+        "home_page.html",
+        context={
+            'request': request
+        }
+    )
+
+@user_router.get('/login')
+def get_login_page(request: Request):
+    return templates.TemplateResponse(
+        "users/login_page.html",
+        context={
+            'request': request
+        }
+    )
+
+@user_router.post('/login')
+def user_login(email: Annotated[str, Form()],password: Annotated[str, Form()]):
+    if users_services.get_user_by_email(email) is None or users_services.get_user_by_email(email).password != password:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail= "Wrong password or email!"
+        ) 
+    access_token = manager.create_access_token(data={'sub': email})
+
+    response = RedirectResponse(url="/menu", status_code=302)
+    response.set_cookie(
+        key=manager.cookie_name,
+        value=access_token,
+        httponly=True
+    )
+    return response
+
+@user_router.post('/logout')
+def user_logout():
+    response = RedirectResponse(url="/users/home", status_code=302)
+    response.delete_cookie(
+        key=manager.cookie_name,
+        httponly=True
+    )
+    return response

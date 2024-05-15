@@ -36,4 +36,21 @@ def generate_id():
 
     return result
     
+def change_password(curr, new, user_email):
+    with Session() as session:
+        statement = select(User).filter_by(email=user_email)
+        user = session.scalars(statement).one()
+        user.password = new
+        session.commit()
+
+def change_user_information(new_firstname, new_name, new_email, user_email):
+    with Session() as session:
+        statement = select(User).filter_by(email=user_email)
+        user = session.scalars(statement).one()
+
+        user.firstname = new_firstname
+        user.name = new_name
+        user.email = new_email
+
+        session.commit()
 
