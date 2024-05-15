@@ -13,9 +13,9 @@ app.include_router(user_router)
 
 @app.on_event('startup')
 def on_startup():
-    print("Server has started!")
+    print("'Le coin de Namur' is on AIR!")
     create_database()
 
 @app.on_event('shutdown')
 def on_shutdown():
-    print("Server is down!")
+    print("'Le coin de Namur' is down!")
