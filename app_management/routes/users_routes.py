@@ -12,7 +12,7 @@ from app_management.services import users_services
 user_router = APIRouter(prefix = "/users")
 templates = Jinja2Templates(directory = "templates")
 
-@user_router.get("/me")
+@user_router.get('/me')
 def current_user_route(user: UserSchema = Depends(manager)):
     return user
 

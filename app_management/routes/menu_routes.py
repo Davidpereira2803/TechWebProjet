@@ -47,13 +47,6 @@ def add_new_dish(dishname: Annotated[str, Form()], dishtype: Annotated[str, Form
     menu_services.add_dish(new_dish)
     return RedirectResponse(url="/menu/all/dishes", status_code=302)
 
-@menu_router.get('/book/table')
-def ask_to_book_a_table(request: Request):
-    return templates.TemplateResponse(
-        "dishes/book_table.html",
-        context={'request': request}
-    )
-
 @menu_router.get('/remove/dish')
 def ask_to_remove_dish(request: Request):
     return templates.TemplateResponse(

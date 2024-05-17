@@ -24,6 +24,12 @@ def add_dish_to_basket(dishid: Annotated[str, Form()], user: UserSchema = Depend
     order_services.add_to_basket(dishid, user)
     return RedirectResponse(url="/orders/order", status_code=302)
 
+
+@order_router.post('/remove/basket')
+def remove_dish_from_basket(dishid: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
+    order_services.remove_from_basket(dishid, user)
+    return RedirectResponse(url="/orders/order", status_code=302)
+
 @order_router.post('/checkout')
 def ceckout():
     return RedirectResponse(url="/menu/all/dishes",status_code=302)
@@ -32,8 +38,3 @@ def ceckout():
 def cancel_order(user: UserSchema = Depends(manager.optional)):
     order_services.cancel_order(user)
     return RedirectResponse(url="/menu/all/dishes",status_code=302)
-
-@order_router.post('/remove/basket')
-def remove_dish_from_basket(dishid: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
-    order_services.remove_from_basket(dishid, user)
-    return RedirectResponse(url="/orders/order", status_code=302)
