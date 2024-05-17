@@ -9,7 +9,7 @@ class User(Base):
     firstname: Mapped[str] = mapped_column(String(72))
     name: Mapped[str] = mapped_column(String(72))
     id: Mapped[int] = mapped_column(Integer, primary_key= True, unique= True)
-    email: Mapped[str] = mapped_column(String(72))
+    email: Mapped[str] = mapped_column(String(72), unique=True)
     password: Mapped[str] = mapped_column(String(72))
     role: Mapped[str] = mapped_column(String(72))
 
@@ -29,3 +29,13 @@ class Order(Base):
     dishes: Mapped[str] = mapped_column(String(72))
     orderprice: Mapped[int] = mapped_column(Integer)
     complete: Mapped[bool] = mapped_column(Boolean)
+
+class Table(Base):
+    __tablename__ = 'tables'
+
+    tableid: Mapped[int] = mapped_column(Integer, primary_key= True, unique= True)
+    clientid: Mapped[int] = mapped_column(Integer)
+    tablecapacity: Mapped[int] = mapped_column(Integer)
+    day: Mapped[str] = mapped_column(String(72))
+    time: Mapped[str] = mapped_column(String(72))
+    available: Mapped[bool] = mapped_column(Boolean)

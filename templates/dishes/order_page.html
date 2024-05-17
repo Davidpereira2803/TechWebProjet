@@ -81,6 +81,11 @@
         </table>
     </div>
 </div>
-<a class="btn" href="/orders/heckout">Checkout</a>
-<a class="btn" href="/orders/cancel/order">Cancel</a>
+
+<form action="/orders/checkout" method="post">
+    <button class="btn" type="submit">Checkout</button>
+</form>
+<form action="/orders/cancel/order" method="post">
+    <button class="btn" type="submit">Cancel Order</button>
+</form>
 {% endblock %}

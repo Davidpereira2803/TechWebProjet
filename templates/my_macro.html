@@ -48,6 +48,10 @@
                 <input type="hidden"  id="dishid" name="dishid" value="{{ dishid }}"/>
                 <button class="btn" type="submit">Add to basket</button>
             </form>
+            <form action="/orders/remove/basket" method="post">
+                <input type="hidden"  id="dishid" name="dishid" value="{{ dishid }}"/>
+                <button class="btn" type="submit">Remove from basket</button>
+            </form>
         </td>
     </tr>
 {% endmacro %}

@@ -20,3 +20,11 @@ class OrderSchema(BaseModel):
     dishes: str
     orderprice: int
     complete: bool
+
+class TableSchema(BaseModel):
+    tableid: int
+    clientid: int
+    available: int
+    day: str
+    time: str
+    complete: bool
