@@ -12,7 +12,7 @@
 </tr>
 {% endmacro %}
 
-{% macro show_menu(dish.dishid, dish.dishname, dish.dishtype, dish.price) %}
+{% macro show_menu(dishid, dishname, dishtype, price) %}
     <tr>
         <td>
             {{ dishid }}
@@ -25,6 +25,29 @@
         </td>
         <td>
             {{ price }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro show_menu_order(dishid, dishname, dishtype, price) %}
+    <tr>
+        <td>
+            {{ dishid }}
+        </td>
+        <td>
+            {{ dishname }}
+        </td>
+        <td>
+            {{ dishtype }}
+        </td>
+        <td>
+            {{ price }}
+        </td>
+        <td>
+            <form action="/orders/add/basket" method="post">
+                <input type="hidden"  id="dishid" name="dishid" value="{{ dishid }}"/>
+                <button class="btn" type="submit">Add to basket</button>
+            </form>
         </td>
     </tr>
 {% endmacro %}

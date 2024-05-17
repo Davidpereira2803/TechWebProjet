@@ -1,15 +1,20 @@
 {% extends "empty_page.html" %}
 
 {% block title %}
-<title>Le coin de Namur -- Add Dish</title>
+<title>Le coin de Namur -- Edit Dish</title>
 {% endblock %}
 
 
 {% block content %}
 
-<h1>You have a new dish? Add it to the Menu!</h1>
+<h1>Ohh you made a mistake? Change it here!</h1>
 
-<form action="/menu/add/dish" method="post">
+<form action="/menu/edit/dish" method="post">
+
+    <div>
+        <label for="dishid">Dish ID to edit</label>
+        <input type="text" id="dishid" name="dishid" placeholder="1" />
+    </div>
 
     <div>
         <label for="dishname">Dish name</label>
@@ -26,7 +31,7 @@
         <input type="text" id="price" name="price" placeholder="10" />
     </div>
 
-    <button class="btn" type="submit">Add new Dish to the Menu</button>
-
+    <button class="btn" type="submit">Add edited Dish to the Menu</button>
+    
 </form>
 {% endblock %}

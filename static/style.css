@@ -50,4 +50,16 @@ footer {
     color: #fff; 
     padding: 5px 5px;
     border-radius: 5px;
+    margin: 20px;
+}
+
+.menu-bloc {
+    background-color: lightgray; 
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-bottom: 20px;
+}
+
+h3 {
+    text-decoration: underline;
 }

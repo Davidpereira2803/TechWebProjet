@@ -32,9 +32,20 @@ def add_dish(new: DishSchema):
         session.commit()
     return dish
 
-def delete_dish_by_id(id_to_delete):
+def remove_dish_by_id(id_to_delete):
     with Session() as session:
-        statement = select(Dish).filter_by(id= id_to_delete)
+        statement = select(Dish).filter_by(dishid= id_to_delete)
         dish = session.scalars(statement).one()
         session.delete(dish)
+        session.commit()
+
+def edit_dish_by_id(id_to_edit, updated_dish):
+    with Session() as session:
+        statement = select(Dish).filter_by(dishid= id_to_edit)
+        dish = session.scalars(statement).one()
+
+        dish.dishname = updated_dish.dishname
+        dish.dishtype = updated_dish.dishtype
+        dish.price = updated_dish.price
+
         session.commit()
