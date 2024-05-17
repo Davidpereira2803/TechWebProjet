@@ -16,7 +16,7 @@ def get_menu_card(request: Request):
     menu = menu_services.get_menu()
     return templates.TemplateResponse(
         request,
-        "menu.html",
+        "/dishes/menu.html",
         context={
             'menu': menu
         }
@@ -25,6 +25,31 @@ def get_menu_card(request: Request):
 @menu_router.get('/add/dish')
 def ask_to_add_new_dish(request: Request):
     return templates.TemplateResponse(
-        "new_dish.html",
+        "dishes/new_dish.html",
+        context={'request': request}
+    )
+
+@menu_router.post('/add/dish')
+def add_new_dish(dishname: Annotated[str, Form()], dishtype: Annotated[str, Form()], price: Annotated[str, Form()]):
+    dish = {
+        'dishid': 0,
+        'dishname': dishname,
+        'dishtype': dishtype,
+        'price': price
+    }
+    try:
+        new_dish = DishSchema.model_validate(dish)
+    except ValidationError as er:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Dish details are not correct or complete!"
+        )
+    menu_services.add_dish(new_dish)
+    return RedirectResponse(url="/users/home", status_code=302)
+
+@menu_router.get('/book/table')
+def ask_to_book_a_table(request: Request):
+    return templates.TemplateResponse(
+        "dishes/book_table.html",
         context={'request': request}
     )

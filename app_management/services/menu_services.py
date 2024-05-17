@@ -18,9 +18,12 @@ def get_menu():
     ]
 
 def add_dish(new: DishSchema):
+
     with Session() as session:
+        statement = select(Dish)
+        menu = session.scalars(statement).all()
         dish = Dish(
-            dishid = new.dishid,
+            dishid = len(menu)+1,
             dishname = new.dishname,
             dishtype = new.dishtype,
             price = new.price
@@ -28,3 +31,10 @@ def add_dish(new: DishSchema):
         session.add(dish)
         session.commit()
     return dish
+
+def delete_dish_by_id(id_to_delete):
+    with Session() as session:
+        statement = select(Dish).filter_by(id= id_to_delete)
+        dish = session.scalars(statement).one()
+        session.delete(dish)
+        session.commit()

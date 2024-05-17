@@ -1,0 +1,30 @@
+{% macro show_user(email, name, firstname) %}
+<tr>
+    <td>{{ email }}</td>
+    
+    <td>
+        {{ name }}
+    </td>
+
+    <td>
+        {{ firstname }}
+    </td>
+</tr>
+{% endmacro %}
+
+{% macro show_menu(dish.dishid, dish.dishname, dish.dishtype, dish.price) %}
+    <tr>
+        <td>
+            {{ dishid }}
+        </td>
+        <td>
+            {{ dishname }}
+        </td>
+        <td>
+            {{ dishtype }}
+        </td>
+        <td>
+            {{ price }}
+        </td>
+    </tr>
+{% endmacro %}

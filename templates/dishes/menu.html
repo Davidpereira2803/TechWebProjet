@@ -1,0 +1,27 @@
+{% extends "empty_page.html" %}
+
+{% block title %}
+<title>Le coin de Namur -- Menu</title>
+{% endblock %}
+
+{% block content %}
+<h2>Welcome to our Restaurant! Take a look at our Menu!</h2>
+
+<div>
+    <table>
+        <tr>
+            <th>Dish ID</th>
+            <th>Dish Name</th>
+            <th>Dish Type</th>
+            <th>Price</th>
+        </tr>
+        {% for dish in menu %}
+            {{ show_menu(dish.dishid, dish.dishname, dish.dishtype, dish.price) }}
+        {% endfor %}
+    </table>
+</div>
+
+
+<a class="btn" href="/menu/add/dish">Add a new Dish</a>
+
+{% endblock %}

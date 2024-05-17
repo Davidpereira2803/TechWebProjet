@@ -20,7 +20,7 @@ def current_user_route(user: UserSchema = Depends(manager)):
 @user_router.get('/new/user')
 def ask_to_add_new_user(request: Request):
     return templates.TemplateResponse(
-        "authentication/new_user.html",
+        "users/new_user_page.html",
         context={
             'request': request
         }
@@ -46,17 +46,17 @@ def create_new_user(firstname: Annotated[str, Form()], name: Annotated[str, Form
             detail="Bad credentials!"
         )
     users_services.add_new_user(new_user)
-    return RedirectResponse(url='/account', status_code=302)
+    return RedirectResponse(url='/users/profile', status_code=302)
 
 @user_router.post('/change/password')
 def change_password(current_password: Annotated[str, Form()], new_password: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
     users_services.change_password(current_password, new_password, user.email)
-    return RedirectResponse(url="/menu", status_code=302)
+    return RedirectResponse(url="/users/home", status_code=302)
 
 @user_router.post('/change/user/information')
 def change_user_information(new_firstname: Annotated[str, Form()], new_name: Annotated[str, Form()], new_email: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
     users_services.change_user_information(new_firstname, new_name, new_email, user.email)
-    return RedirectResponse(url="/menu", status_code=302)
+    return RedirectResponse(url="/users/home", status_code=302)
 
 
 @user_router.get('/home')
@@ -86,7 +86,7 @@ def user_login(email: Annotated[str, Form()],password: Annotated[str, Form()]):
         ) 
     access_token = manager.create_access_token(data={'sub': email})
 
-    response = RedirectResponse(url="/menu", status_code=302)
+    response = RedirectResponse(url="/menu/all/dishes", status_code=302)
     response.set_cookie(
         key=manager.cookie_name,
         value=access_token,
@@ -102,3 +102,10 @@ def user_logout():
         httponly=True
     )
     return response
+
+@user_router.get('/profile')
+def ask_to_go_to_profile(request: Request, user: UserSchema = Depends(manager)):
+    return templates.TemplateResponse(
+        "/users/profile_page.html",
+        context={'request': request, 'active_user': user}
+    )

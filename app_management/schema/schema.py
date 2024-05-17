@@ -14,7 +14,7 @@ class DishSchema(BaseModel):
     dishtype: str
     price: int
 
-class Order(BaseModel):
+class OrderSchema(BaseModel):
     orderid: int
     clientid: int
     dishes: str
