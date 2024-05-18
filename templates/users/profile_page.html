@@ -57,9 +57,11 @@
 </div>
 
 <div class="bloc">
-    {% if active_user.role == "client" %}
+    {% if active_user.role == "admin" %}
         <a class="btn" href="/orders/get/orders">Manage Orders!</a>
     {% endif %}
+    {% if active_user.role == "client" %}
     <a class="btn" href="/orders/my/orders">My Orders</a>
+    {% endif %}
 </div>
 {% endblock %}
