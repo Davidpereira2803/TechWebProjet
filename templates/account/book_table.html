@@ -4,18 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Réservation</title>
-<style>
-    table { border-spacing: 10px; }
-    td,th { width: 75px; padding: 5px 5px;
-    background-color: lightgray;
-    text-align: center;
-    empty-cells: hide;
-    }
-    .hours { width: 100px }
-    th { width: 120px; padding: 5px; }
-    td { text-align: center; background-color: lightpink; }
-</style>
-    
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -23,49 +12,91 @@
 
 <table>
     <tr>
-    <th class="hours"></th> <th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
+        <th class="hours"></th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
     </tr>
     <tr>
         <th>14:00 - 16:00</th>
-        <td>A</td>
-        <td>B</td>
-        <td>D</td>
-        <td>B</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td data-time="14:00-16:00" data-day="Monday">A</td>
+        <td data-time="14:00-16:00" data-day="Tuesday">B</td>
+        <td data-time="14:00-16:00" data-day="Wednesday">D</td>
+        <td data-time="14:00-16:00" data-day="Thursday">B</td>
+        <td data-time="14:00-16:00" data-day="Friday"></td>
+        <td data-time="14:00-16:00" data-day="Saturday"></td>
+        <td data-time="14:00-16:00" data-day="Sunday"></td>
     </tr>
     <tr>
         <th>16:00 - 18:00</th>
-        <td>C</td>
-        <td>E</td>
-        <td>C</td>
-        <td>D</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td data-time="16:00-18:00" data-day="Monday">C</td>
+        <td data-time="16:00-18:00" data-day="Tuesday">E</td>
+        <td data-time="16:00-18:00" data-day="Wednesday">C</td>
+        <td data-time="16:00-18:00" data-day="Thursday">D</td>
+        <td data-time="16:00-18:00" data-day="Friday"></td>
+        <td data-time="16:00-18:00" data-day="Saturday"></td>
+        <td data-time="16:00-18:00" data-day="Sunday"></td>
     </tr>
     <tr>
         <th>18:00 - 20:00</th>
-        <td>B</td>
-        <td>D</td>
-        <td></td>
-        <td>A</td>
-        <td>E</td>
-        <td></td>
-        <td></td>
+        <td data-time="18:00-20:00" data-day="Monday">B</td>
+        <td data-time="18:00-20:00" data-day="Tuesday">D</td>
+        <td data-time="18:00-20:00" data-day="Wednesday"></td>
+        <td data-time="18:00-20:00" data-day="Thursday">A</td>
+        <td data-time="18:00-20:00" data-day="Friday">E</td>
+        <td data-time="18:00-20:00" data-day="Saturday"></td>
+        <td data-time="18:00-20:00" data-day="Sunday"></td>
     </tr>
     <tr>
         <th>20:00 - 22:00</th>
-        <td>C</td>
-        <td>E</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td data-time="20:00-22:00" data-day="Monday">C</td>
+        <td data-time="20:00-22:00" data-day="Tuesday">E</td>
+        <td data-time="20:00-22:00" data-day="Wednesday"></td>
+        <td data-time="20:00-22:00" data-day="Thursday"></td>
+        <td data-time="20:00-22:00" data-day="Friday"></td>
+        <td data-time="20:00-22:00" data-day="Saturday"></td>
+        <td data-time="20:00-22:00" data-day="Sunday"></td>
     </tr>
 </table>
+
+<p id="reservation-info"></p>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cells = document.querySelectorAll('td[data-time]');
+        let selectedCell = null;
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', function() {
+                if (selectedCell) {
+                    selectedCell.classList.remove('selected');
+                }
+                this.classList.add('selected');
+                selectedCell = this;
+                const time = this.getAttribute('data-time');
+                const day = this.getAttribute('data-day');
+                document.getElementById('reservation-info').innerText = `Réservation confirmée: ${day} de ${time}`;
+                localStorage.setItem('reservation', JSON.stringify({ day, time }));
+            });
+        });
+
+        // Load the reservation if it exists
+        const reservation = JSON.parse(localStorage.getItem('reservation'));
+        if (reservation) {
+            cells.forEach(cell => {
+                if (cell.getAttribute('data-time') === reservation.time && cell.getAttribute('data-day') === reservation.day) {
+                    cell.classList.add('selected');
+                    selectedCell = cell;
+                    document.getElementById('reservation-info').innerText = `Réservation confirmée: ${reservation.day} de ${reservation.time}`;
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
