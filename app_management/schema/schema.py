@@ -20,6 +20,7 @@ class OrderSchema(BaseModel):
     dishes: str
     orderprice: int
     complete: bool
+    status: str
 
 class TableSchema(BaseModel):
     tableid: int

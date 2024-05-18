@@ -17,11 +17,11 @@
                 <th>Client ID</th>
                 <th>Ordered Dishes</th>
                 <th>Order Price</th>
-                <th>Completed?</th>
+                <th>Status</th>
             </tr>
             {% for order in orders %}
-                {% if not order.complete%}
-                    {{ show_orders(order.orderid, order.clientid, order.dishes, order.orderprice, order.complete) }}
+                {% if order.status == "working"%}
+                    {{ show_orders(order.orderid, order.clientid, order.dishes, order.orderprice, order.status) }}
                 {% endif %} 
             {% endfor %}
         </table>

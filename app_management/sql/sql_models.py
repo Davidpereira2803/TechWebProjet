@@ -25,10 +25,11 @@ class Order(Base):
     __tablename__ = 'orders'
 
     orderid: Mapped[int] = mapped_column(Integer, primary_key= True, unique= True)
-    clientid: Mapped[int] = mapped_column(Integer, unique= True)
+    clientid: Mapped[int] = mapped_column(Integer)
     dishes: Mapped[str] = mapped_column(String(72))
     orderprice: Mapped[int] = mapped_column(Integer)
     complete: Mapped[bool] = mapped_column(Boolean)
+    status: Mapped[str] = mapped_column(String(72))
 
 class Table(Base):
     __tablename__ = 'tables'

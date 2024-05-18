@@ -75,8 +75,8 @@
             </tr>
             {% for dish in menu %}
                 {% if dish.dishtype == "Drinks"%}
-                    {{ show_menu_order(dish.dishid, dish.dishname, dish.dishtype, dish.price) }}
-                {% endif %}  
+                    {{ show_menu_order(dish.dishid, dish.dishname, dish.dishtype, dish.price) }} 
+                {% endif %}
             {% endfor %}
         </table>
     </div>

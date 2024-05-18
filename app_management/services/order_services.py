@@ -11,18 +11,17 @@ def get_orders():
 
     return orders
 
-def add_to_basket(id, user):
+def add_to_basket(dish_id, user):
     with Session() as session:
-        statement = select(Dish).filter_by(dishid= id)
+        statement = select(Dish).filter_by(dishid= dish_id)
         dish = session.scalars(statement).one()
 
         statement = select(Order)
         orders = session.scalars(statement).all()
         
-        statement = select(Order).filter_by(clientid=user.id)
+        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
         try:
             current_order = session.scalars(statement).one()
-
             current_order.dishes = current_order.dishes + "," + dish.dishname
             current_order.orderprice = current_order.orderprice + dish.price
         except:
@@ -32,6 +31,7 @@ def add_to_basket(id, user):
                 dishes= dish.dishname,
                 orderprice= dish.price,
                 complete= False, 
+                status="working"
             )
 
             session.add(order)
@@ -40,15 +40,23 @@ def add_to_basket(id, user):
 
 def cancel_order(user):
     with Session() as session:
-        statement = select(Order).filter_by(clientid=user.id)
+        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
         order = session.scalars(statement).one()
 
         session.delete(order)
         session.commit()
 
+def checkout(user):
+    with Session() as session:
+        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+        order = session.scalars(statement).one()
+
+        order.complete = True
+        session.commit()
+
 def remove_from_basket(dish_id, user):
     with Session() as session:
-        statement = select(Order).filter_by(clientid=user.id)
+        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
         order = session.scalars(statement).one()
 
         statement = select(Dish).filter_by(dishid=dish_id)
@@ -63,5 +71,5 @@ def mark_as_complete(order_id):
         statement = select(Order).filter_by(orderid= order_id)
         order = session.scalars(statement).one()
 
-        order.complete = True
+        order.status = "ready"
         session.commit()

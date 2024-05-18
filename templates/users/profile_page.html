@@ -56,11 +56,10 @@
     </form>
 </div>
 
-
-{% if active_user.role == "client" %}
-    <div class="bloc">
+<div class="bloc">
+    {% if active_user.role == "client" %}
         <a class="btn" href="/orders/get/orders">Manage Orders!</a>
-    </div>
-{% endif %}
-
+    {% endif %}
+    <a class="btn" href="/orders/my/orders">My Orders</a>
+</div>
 {% endblock %}

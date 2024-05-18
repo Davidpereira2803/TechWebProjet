@@ -15,8 +15,16 @@ templates = Jinja2Templates(directory="templates")
 def ask_to_order(request: Request):
     menu = menu_services.get_menu()
     return templates.TemplateResponse(
-        "/prders/order_page.html",
+        "/orders/order_page.html",
         context={'request': request, 'menu': menu}
+    )
+
+@order_router.get('/my/orders')
+def ask_to_get_my_order(request: Request, user: UserSchema = Depends(manager.optional)):
+    orders = order_services.get_orders()
+    return templates.TemplateResponse(
+        "/users/my_orders.html",
+        context={'request': request, 'user': user, 'orders': orders}
     )
 
 @order_router.post('/add/basket')
@@ -31,7 +39,8 @@ def remove_dish_from_basket(dishid: Annotated[str, Form()], user: UserSchema = D
     return RedirectResponse(url="/orders/order", status_code=302)
 
 @order_router.post('/checkout')
-def ceckout():
+def checkout(user: UserSchema = Depends(manager.optional)):
+    order_services.checkout(user)
     return RedirectResponse(url="/menu/all/dishes",status_code=302)
 
 @order_router.post('/cancel/order')
