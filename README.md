@@ -6,10 +6,10 @@ Ce projet présente un site web pour un restaurant et propose une présentation 
 ## Routes
 ### Routes pour les menus
 Prefix: '/menu'\
-'/all/dishes'\
-'/add/dish'\
-'/remove/dish'\
-'/edit/dish'\
+-'/all/dishes'
+-'/add/dish'
+-'/remove/dish'
+-'/edit/dish'
 
 ### Routes pour les orders
 Prefix: '/orders'
