@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -28,3 +28,20 @@ def on_startup():
 @app.on_event('shutdown')
 def on_shutdown():
     print("'Le coin de Namur' is down!")
+
+@app.exception_handler(422)
+def error_422_redirection(request: Request, exception: HTTPException):
+    return templates.TemplateResponse("errors/422.html", {"request": request, "exception": exception}, status_code=422)
+
+@app.exception_handler(404)
+def error_404_redirection(request: Request, exception: HTTPException):
+    return templates.TemplateResponse("errors/404.html", {"request": request, "exception": exception}, status_code=404)
+
+@app.exception_handler(400)
+def error_400_redirection(request: Request, exception: HTTPException):
+    return templates.TemplateResponse("errors/400.html", {"request": request, "exception": exception}, status_code=400)
+
+@app.exception_handler(401)
+def error_401_redirection(request: Request, exception: HTTPException):
+    return templates.TemplateResponse("errors/401.html", {"request": request, "exception": exception}, status_code=401)
+

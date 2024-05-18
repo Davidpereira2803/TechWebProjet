@@ -1,5 +1,6 @@
 import random
 from sqlalchemy import select
+from fastapi import HTTPException, status
 
 from app_management.db_manager import Session
 from app_management.sql.sql_models import User
@@ -40,8 +41,14 @@ def change_password(curr, new, user_email):
     with Session() as session:
         statement = select(User).filter_by(email=user_email)
         user = session.scalars(statement).one()
-        user.password = new
-        session.commit()
+        if curr == user.password:
+            user.password = new
+            session.commit()
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Wrong Password!",
+            )
 
 def change_user_information(new_firstname, new_name, new_email, user_email):
     with Session() as session:

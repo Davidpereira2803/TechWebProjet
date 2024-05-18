@@ -102,3 +102,32 @@
 
     </tr>
 {% endmacro %}
+
+{% macro show_tables(tableid, clientid, tablecapacity, day, time, available) %}
+    <tr>
+        <td>
+            {{ tableid }}
+        </td>
+        <td>
+            {{ clientid }}
+        </td>
+        <td>
+            {{ tablecapacity }}
+        </td>
+        <td>
+            {{ day }}
+        </td>
+        <td>
+            {{ time }}
+        </td>
+        <td>
+            {{ available }}
+        </td>
+        <td>
+            <form action="/table/change/availability" method="post">
+                <input type="hidden"  id="tableid" name="tableid" value="{{ tableid }}"/>
+                <button class="btn" type="submit">Change Availability</button>
+            </form>
+        </td>
+    </tr>
+{% endmacro %}

@@ -1,4 +1,5 @@
 from sqlalchemy import select
+from fastapi import HTTPException, status
 
 from app_management.db_manager import Session
 from app_management.sql.sql_models import Dish, Order
@@ -18,8 +19,13 @@ def add_to_basket(dish_id, user):
 
         statement = select(Order)
         orders = session.scalars(statement).all()
-        
-        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+        try:
+            statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="You must be logged in to order!",
+            )
         try:
             current_order = session.scalars(statement).one()
             current_order.dishes = current_order.dishes + "," + dish.dishname
@@ -40,31 +46,48 @@ def add_to_basket(dish_id, user):
 
 def cancel_order(user):
     with Session() as session:
-        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
-        order = session.scalars(statement).one()
+        try:
+            statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+            order = session.scalars(statement).one()
 
-        session.delete(order)
-        session.commit()
-
+            session.delete(order)
+            session.commit()
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="You must be logged in to cancel!",
+            )
+        
 def checkout(user):
     with Session() as session:
-        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
-        order = session.scalars(statement).one()
-
-        order.complete = True
-        session.commit()
+        try:
+            statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+            order = session.scalars(statement).one()
+            order.complete = True
+            session.commit()
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="You must be logged in to checkout!",
+            )
 
 def remove_from_basket(dish_id, user):
     with Session() as session:
-        statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
-        order = session.scalars(statement).one()
+        try:
+            statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
+            order = session.scalars(statement).one()
 
-        statement = select(Dish).filter_by(dishid=dish_id)
-        dish_to_remove = session.scalars(statement).one()
+            statement = select(Dish).filter_by(dishid=dish_id)
+            dish_to_remove = session.scalars(statement).one()
 
-        order.dishes = order.dishes.replace(dish_to_remove.dishname, "", 1)
-        order.orderprice = order.orderprice - dish_to_remove.price
-        session.commit()
+            order.dishes = order.dishes.replace(dish_to_remove.dishname, "", 1)
+            order.orderprice = order.orderprice - dish_to_remove.price
+            session.commit()
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="You must be logged in to order!",
+            )
 
 def mark_as_complete(order_id):
     with Session() as session:

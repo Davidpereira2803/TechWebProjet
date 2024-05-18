@@ -1,4 +1,5 @@
 from sqlalchemy import select
+from fastapi import HTTPException, status
 
 from app_management.db_manager import Session
 from app_management.sql.sql_models import Dish
@@ -34,18 +35,30 @@ def add_dish(new: DishSchema):
 
 def remove_dish_by_id(id_to_delete):
     with Session() as session:
-        statement = select(Dish).filter_by(dishid= id_to_delete)
-        dish = session.scalars(statement).one()
-        session.delete(dish)
-        session.commit()
+        try:
+            statement = select(Dish).filter_by(dishid= id_to_delete)
+            dish = session.scalars(statement).one()
+            session.delete(dish)
+            session.commit()
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="No dish was found with that id!",
+            )
 
 def edit_dish_by_id(id_to_edit, updated_dish):
     with Session() as session:
-        statement = select(Dish).filter_by(dishid= id_to_edit)
-        dish = session.scalars(statement).one()
+        try:
+            statement = select(Dish).filter_by(dishid= id_to_edit)
+            dish = session.scalars(statement).one()
 
-        dish.dishname = updated_dish.dishname
-        dish.dishtype = updated_dish.dishtype
-        dish.price = updated_dish.price
+            dish.dishname = updated_dish.dishname
+            dish.dishtype = updated_dish.dishtype
+            dish.price = updated_dish.price
 
-        session.commit()
+            session.commit()
+        except Exception as er:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="No dish was found with that id!",
+            )
