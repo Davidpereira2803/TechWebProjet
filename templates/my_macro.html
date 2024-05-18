@@ -55,3 +55,29 @@
         </td>
     </tr>
 {% endmacro %}
+
+{% macro show_orders(orderid, clientid, dishes, orderprice, complete) %}
+    <tr>
+        <td>
+            {{ orderid }}
+        </td>
+        <td>
+            {{ clientid }}
+        </td>
+        <td>
+            {{ dishes }}
+        </td>
+        <td>
+            {{ orderprice }}
+        </td>
+        <td>
+            {{ complete }}
+        </td>
+        <td>
+            <form action="/orders/complete" method="post">
+                <input type="hidden"  id="orderid" name="orderid" value="{{ orderid }}"/>
+                <button class="btn" type="submit">Mark as complete</button>
+            </form>
+        </td>
+    </tr>
+{% endmacro %}

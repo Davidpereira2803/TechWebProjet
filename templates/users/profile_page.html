@@ -57,4 +57,10 @@
 </div>
 
 
+{% if active_user.role == "client" %}
+    <div class="bloc">
+        <a class="btn" href="/orders/get/orders">Manage Orders!</a>
+    </div>
+{% endif %}
+
 {% endblock %}

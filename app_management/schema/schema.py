@@ -28,3 +28,8 @@ class TableSchema(BaseModel):
     day: str
     time: str
     complete: bool
+
+class FeedbackSchema(BaseModel):
+    feedbackid: int
+    clientemail: str
+    feedback: str

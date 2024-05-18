@@ -39,3 +39,10 @@ class Table(Base):
     day: Mapped[str] = mapped_column(String(72))
     time: Mapped[str] = mapped_column(String(72))
     available: Mapped[bool] = mapped_column(Boolean)
+
+class Feedback(Base):
+    __tablename__ = 'feedback'
+
+    feedbackid: Mapped[int] = mapped_column(Integer, primary_key= True, unique= True)
+    clientemail: Mapped[str] = mapped_column(String(72))
+    feedback: Mapped[str] = mapped_column(String(72))

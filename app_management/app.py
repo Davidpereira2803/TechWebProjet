@@ -6,6 +6,7 @@ from app_management.routes.users_routes import user_router
 from app_management.routes.menu_routes import menu_router
 from app_management.routes.orders_routes import order_router
 from app_management.routes.table_booking_routes import table_router
+from app_management.routes.feedback_routes import feedback_router
 
 from app_management.db_manager import create_database
 
@@ -17,6 +18,7 @@ app.include_router(user_router)
 app.include_router(menu_router)
 app.include_router(order_router)
 app.include_router(table_router)
+app.include_router(feedback_router)
 
 @app.on_event('startup')
 def on_startup():

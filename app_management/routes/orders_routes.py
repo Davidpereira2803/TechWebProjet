@@ -15,7 +15,7 @@ templates = Jinja2Templates(directory="templates")
 def ask_to_order(request: Request):
     menu = menu_services.get_menu()
     return templates.TemplateResponse(
-        "/dishes/order_page.html",
+        "/prders/order_page.html",
         context={'request': request, 'menu': menu}
     )
 
@@ -38,3 +38,16 @@ def ceckout():
 def cancel_order(user: UserSchema = Depends(manager.optional)):
     order_services.cancel_order(user)
     return RedirectResponse(url="/menu/all/dishes",status_code=302)
+
+@order_router.get('/get/orders')
+def ask_to_manage_orders(request: Request):
+    orders = order_services.get_orders()
+    return templates.TemplateResponse(
+        "/orders/orders_managment.html",
+        context={'request': request, 'orders': orders}
+    )
+
+@order_router.post('/complete')
+def mark_order_as_completed(orderid: Annotated[str, Form()]):
+    order_services.mark_as_complete(orderid)
+    return RedirectResponse(url="/orders/get/orders",status_code=302)

@@ -4,6 +4,13 @@ from app_management.db_manager import Session
 from app_management.sql.sql_models import Dish, Order
 from app_management.schema.schema import DishSchema, OrderSchema
 
+def get_orders():
+    with Session() as session:
+        statement = select(Order)
+        orders = session.scalars(statement).all()
+
+    return orders
+
 def add_to_basket(id, user):
     with Session() as session:
         statement = select(Dish).filter_by(dishid= id)
@@ -39,13 +46,22 @@ def cancel_order(user):
         session.delete(order)
         session.commit()
 
-def remove_from_basket(id, user):
+def remove_from_basket(dish_id, user):
     with Session() as session:
         statement = select(Order).filter_by(clientid=user.id)
         order = session.scalars(statement).one()
 
-        statement = select(Dish).filter_by(dishid=id)
+        statement = select(Dish).filter_by(dishid=dish_id)
         dish_to_remove = session.scalars(statement).one()
 
         order.dishes = order.dishes.replace(dish_to_remove.dishname, "", 1)
+        order.orderprice = order.orderprice - dish_to_remove.price
+        session.commit()
+
+def mark_as_complete(order_id):
+    with Session() as session:
+        statement = select(Order).filter_by(orderid= order_id)
+        order = session.scalars(statement).one()
+
+        order.complete = True
         session.commit()
