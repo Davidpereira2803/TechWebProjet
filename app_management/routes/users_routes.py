@@ -46,7 +46,7 @@ def create_new_user(firstname: Annotated[str, Form()], name: Annotated[str, Form
             detail="Bad credentials!"
         )
     users_services.add_new_user(new_user)
-    return RedirectResponse(url='/users/profile', status_code=302)
+    return RedirectResponse(url='/users/login', status_code=302)
 
 @user_router.post('/change/password')
 def change_password(current_password: Annotated[str, Form()], new_password: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):

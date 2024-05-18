@@ -3,6 +3,7 @@ from sqlalchemy import select
 from app_management.db_manager import Session
 from app_management.sql.sql_models import Dish
 from app_management.schema.schema import DishSchema
+from app_management.services import users_services
 
 def get_menu():
     with Session() as session: 
@@ -18,12 +19,11 @@ def get_menu():
     ]
 
 def add_dish(new: DishSchema):
-
     with Session() as session:
         statement = select(Dish)
         menu = session.scalars(statement).all()
         dish = Dish(
-            dishid = len(menu)+1,
+            dishid = users_services.generate_id(),
             dishname = new.dishname,
             dishtype = new.dishtype,
             price = new.price
