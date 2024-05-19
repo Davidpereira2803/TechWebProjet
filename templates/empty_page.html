@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-
-    <meta charset = "UTF-8">
-    
     {% block title %}
-
-    <title> Titre </title>
-
+    <title>Le coin de Namur</title>
     {% endblock %}
-
-    <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel = "stylesheet" href = "/static/style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
+    <header>
+        <div class="header-bloc">
+            <h1>Le coin de Namur</h1>
+            <nav>
+                <a href="/users/home">Home |</a>
+                <a href="/menu/all/dishes">Menu |</a>
+                <a href="/table/book/table">Book a Table |</a>
+                <a href="/orders/order">Order |</a>
+                <a href="/users/login">Login |</a>
+                <a href="/users/profile">Profile</a>
+            </nav>
+        </div>
+    </header>
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
-    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"> </script>
-
+    <footer>
+        <p>&copy; 2024 Le coin de Namur. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>
