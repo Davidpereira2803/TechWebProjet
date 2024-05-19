@@ -1,0 +1,9 @@
+CREATE TABLE orders (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  client_name VARCHAR(255),
+  table_number INT,
+  order_details TEXT,
+  order_time DATETIME,
+  client_email VARCHAR(255),
+  status VARCHAR(255) DEFAULT 'pending'
+);
