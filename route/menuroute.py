@@ -5,6 +5,8 @@ from pydantic import ValidationError
 
 from typing import Annotated
 
+from shema.menu import CheckOrder, OrderSchema
+
 
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
