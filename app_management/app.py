@@ -10,10 +10,14 @@ from app_management.routes.feedback_routes import feedback_router
 
 from app_management.db_manager import create_database
 
+#Définir ou se trouve les templates HTML
 templates = Jinja2Templates(directory = "templates")
 
 app = FastAPI(title = "Le coin de Namur")
+#Définir ou se trouve les fichier statics comme .css .js ou des images
 app.mount("/static", StaticFiles(directory = "static"))
+
+#Inclusion des routers dans l'application
 app.include_router(user_router)
 app.include_router(menu_router)
 app.include_router(order_router)
@@ -22,26 +26,32 @@ app.include_router(feedback_router)
 
 @app.on_event('startup')
 def on_startup():
+    """Creation de la base de donnée en lancant le serveur et print un petit message dans la console"""
     print("'Le coin de Namur' is on AIR!")
     create_database()
 
 @app.on_event('shutdown')
 def on_shutdown():
+    """Print un petit message dans la console"""
     print("'Le coin de Namur' is down!")
 
 @app.exception_handler(422)
 def error_422_redirection(request: Request, exception: HTTPException):
+    """Fonction executé lors d'une erreur 422 -> l'utilisateur est dirigé vers la page 422.html"""
     return templates.TemplateResponse("errors/422.html", {"request": request, "exception": exception}, status_code=422)
 
 @app.exception_handler(404)
 def error_404_redirection(request: Request, exception: HTTPException):
+    """Fonction executé lors d'une erreur 404 -> l'utilisateur est dirigé vers la page 404.html"""
     return templates.TemplateResponse("errors/404.html", {"request": request, "exception": exception}, status_code=404)
 
 @app.exception_handler(400)
 def error_400_redirection(request: Request, exception: HTTPException):
+    """Fonction executé lors d'une erreur 424002 -> l'utilisateur est dirigé vers la page 400.html"""
     return templates.TemplateResponse("errors/400.html", {"request": request, "exception": exception}, status_code=400)
 
 @app.exception_handler(401)
 def error_401_redirection(request: Request, exception: HTTPException):
+    """Fonction executé lors d'une erreur 401 -> l'utilisateur est dirigé vers la page 401.html"""
     return templates.TemplateResponse("errors/401.html", {"request": request, "exception": exception}, status_code=401)
 

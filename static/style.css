@@ -63,3 +63,24 @@ footer {
 h3 {
     text-decoration: underline;
 }
+
+table {
+    margin: 0 auto;
+    width: 60%;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.info {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 100px;
+}

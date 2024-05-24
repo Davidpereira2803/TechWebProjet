@@ -7,6 +7,7 @@ from app_management.sql.sql_models import User
 from app_management.schema.schema import UserSchema
 
 def get_user_by_email(email: str):
+    """Fonction pour accèder à la base de donnée et prendre l'utilisateur avec l'email passer comme paramètre"""
     with Session() as session:
         statement = select(User)
         users_data = session.scalars(statement).all()
@@ -16,6 +17,7 @@ def get_user_by_email(email: str):
     return None
 
 def add_new_user(user_values: UserSchema):
+    """Fonction pour ajouter un utilisateur à la base de donnée"""
     with Session() as session:
         user = User(
             firstname = user_values.firstname,
@@ -31,6 +33,7 @@ def add_new_user(user_values: UserSchema):
     return user
 
 def generate_id():
+    """Fonction pour génèrer une id unique pour les utilisateurs"""
     result = 1
     for i in range(10):
         result = result + random.randint(1,10) * result
@@ -38,6 +41,7 @@ def generate_id():
     return result
     
 def change_password(curr, new, user_email):
+    """Fonction qui accède à la base de donnée et change le password de l'utilisateur avec l'email passer comme paramètre"""
     with Session() as session:
         statement = select(User).filter_by(email=user_email)
         user = session.scalars(statement).one()
@@ -51,6 +55,7 @@ def change_password(curr, new, user_email):
             )
 
 def change_user_information(new_firstname, new_name, new_email, user_email):
+    """Fonction qui accède à la base de donnée et change le nom, le pénom, et l'email de l'utilisateur avec l'email passer comme paramètre"""
     with Session() as session:
         statement = select(User).filter_by(email=user_email)
         user = session.scalars(statement).one()

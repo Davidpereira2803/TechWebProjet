@@ -14,11 +14,13 @@ templates = Jinja2Templates(directory = "templates")
 
 @user_router.get('/me')
 def current_user_route(user: UserSchema = Depends(manager)):
+    """Fonction et route pour GET l'utilisateur actuel"""
     return user
 
 
 @user_router.get('/new/user')
 def ask_to_add_new_user(request: Request):
+    """Fonction et route pour GET la page pour crée un nouvel utilisateur"""
     return templates.TemplateResponse(
         "users/new_user_page.html",
         context={
@@ -28,6 +30,7 @@ def ask_to_add_new_user(request: Request):
 
 @user_router.post('/new/user')
 def create_new_user(firstname: Annotated[str, Form()], name: Annotated[str, Form()], email: Annotated[str, Form()], password: Annotated[str, Form()],):
+    """Fonction et route pour POST le nouvel utilisateur"""
     user = {
         'firstname': firstname,
         'name': name,
@@ -50,17 +53,20 @@ def create_new_user(firstname: Annotated[str, Form()], name: Annotated[str, Form
 
 @user_router.post('/change/password')
 def change_password(current_password: Annotated[str, Form()], new_password: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
+    """Fonction et route pour POST changer le password de l'utilisateur actuel"""
     users_services.change_password(current_password, new_password, user.email)
     return RedirectResponse(url="/users/home", status_code=302)
 
 @user_router.post('/change/user/information')
 def change_user_information(new_firstname: Annotated[str, Form()], new_name: Annotated[str, Form()], new_email: Annotated[str, Form()], user: UserSchema = Depends(manager.optional)):
+    """Fonction et route pour POST changer les informations de l'utilisateur actuel"""
     users_services.change_user_information(new_firstname, new_name, new_email, user.email)
     return RedirectResponse(url="/users/home", status_code=302)
 
 
 @user_router.get('/home')
 def get_home_page(request: Request):
+    """Fonction et route pour GET la page home"""
     return templates.TemplateResponse(
         "home_page.html",
         context={
@@ -70,6 +76,7 @@ def get_home_page(request: Request):
 
 @user_router.get('/login')
 def get_login_page(request: Request):
+    """Fonction et route pour GET la page login"""
     return templates.TemplateResponse(
         "users/login_page.html",
         context={
@@ -79,6 +86,7 @@ def get_login_page(request: Request):
 
 @user_router.post('/login')
 def user_login(email: Annotated[str, Form()],password: Annotated[str, Form()]):
+    """Fonction et route pour POST faire le login de l'utilisateur avec l'email et le password indiquer"""
     if users_services.get_user_by_email(email) is None or users_services.get_user_by_email(email).password != password:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -96,6 +104,7 @@ def user_login(email: Annotated[str, Form()],password: Annotated[str, Form()]):
 
 @user_router.post('/logout')
 def user_logout():
+    """Fonction et route pour POST faire le logout et aller sur la page home"""
     response = RedirectResponse(url="/users/home", status_code=302)
     response.delete_cookie(
         key=manager.cookie_name,
@@ -105,6 +114,7 @@ def user_logout():
 
 @user_router.get('/profile')
 def ask_to_go_to_profile(request: Request, user: UserSchema = Depends(manager)):
+    """Fonction et route pour GET la page profile"""
     return templates.TemplateResponse(
         "/users/profile_page.html",
         context={'request': request, 'active_user': user}

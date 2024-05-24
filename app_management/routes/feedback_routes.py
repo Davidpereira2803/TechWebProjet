@@ -13,6 +13,7 @@ templates = Jinja2Templates(directory="templates")
 
 @feedback_router.post('/feedback')
 def leave_feedback(email: Annotated[str, Form()], password: Annotated[str, Form()], users_feedback: Annotated[str, Form()]):
+    """Fonction et route POST pour laisser un feedback -> ajouter un feedback à la base de donnée"""
     if users_services.get_user_by_email(email).password == password:
         feedback_services.leave_feedback(users_feedback, email)
     else:

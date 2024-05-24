@@ -42,3 +42,5 @@ Prefix: '/users'
 ### Routes pour le feedback
 Prefix: '/feedbacks'
 - '/feedback'
+
+## Fonctionalités
