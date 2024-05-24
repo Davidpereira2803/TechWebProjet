@@ -46,10 +46,27 @@ Prefix: '/feedbacks'
 - '/feedback'
 
 ## Fonctionalités
-Comme dit avant quelques pages ne sont que accessible pour le staff:
-### Administrateur (Staff)
+Comme dit avant quelques pages ne sont que accessible pour le staff, par contre toutes les fonctionalités des clients est aussi disponibles pour le staff:
+
 
 
 
 
 ### Utilisateur (Client)
+- Voir les élèments du menu (sans un login)
+- Création d'un compte
+- Login/ Logout
+- Accèder à la page Profile 
+    - Changer le prènom, nom et email
+    - Changer le mot de passe, en fournissont le mot de passe actuel
+- Accèder à la page My Orders, pour voir les commandes de l'utilisateur
+- Laisser un commentaire, en indiquant l'email ainsi que le password
+- Réserver une table en indiquant le jour, l'heure ainsi que le nombre de personnes
+- Passer des commandes
+    - Ajouter des éléments au panier
+    - Retirere des éléments du panier
+    - Faire un checkout
+    - Annuler la commande
+    - Dans la page My Orders, suivre le status de la commande ("working", "finished")
+
+### Administrateur (Staff)
