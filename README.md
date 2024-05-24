@@ -48,10 +48,6 @@ Prefix: '/feedbacks'
 ## Fonctionalités
 Comme dit avant quelques pages ne sont que accessible pour le staff, par contre toutes les fonctionalités des clients est aussi disponibles pour le staff:
 
-
-
-
-
 ### Utilisateur (Client)
 - Voir les élèments du menu (sans un login)
 - Création d'un compte
@@ -70,3 +66,11 @@ Comme dit avant quelques pages ne sont que accessible pour le staff, par contre 
     - Dans la page My Orders, suivre le status de la commande ("working", "finished")
 
 ### Administrateur (Staff)
+- Manipuler le menu du restaurant via la page Menu, sur laquelle il y a des buttons uniquement visible pour les administrateurs
+ - Additioner des plats au menu 
+ - Supprimer des plats du menu 
+ - Editer des plats du menu 
+- Gérer les tables à travers le button dans la page Profile uniquement visible pour les administrateurs
+    - changer la disponibilité des tables -> enlever la reservation actuelle
+- Gérer les commandes à travers le button dans la page Profile uniquement visible pour les administrateurs
+    - changer le status de la commande -> marquer la commande comme prête
