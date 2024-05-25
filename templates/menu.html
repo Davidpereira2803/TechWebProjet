@@ -1,5 +1,70 @@
 {% extends "empty_page.html" %}
+{% from "my_macro.html" import show_menu %}
+
+{% block title %}
+<title>Le coin de Namur -- Menu</title>
+{% endblock %}
 
 {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Menu du Restaurant</title>
+</head>
+<body>
+
+<header>
+    <div class="menu">
+        <img src="/images/menu.png" class="menu_icons">
+        <ul>
+            <li><a href="#">menu</a></li>
+            <li><a href="#">Book a Table</a></li>
+            <li><a href="#">Order</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+    <div class="header-end">
+        <i class="fa-solid fa-location-dot"></i>
+        <i class="fa-solid fa-crown"></i>
+        <div class="login">
+            <button><span>Se connecter</span></button>
+            <hr>
+            <p>Nouveau client?</p>
+            <button><span>rejoignez nous</span></button>
+        </div>
+    </div>
+    <a href="ClickCollect.html"><button><span>Click & collect</span></button></a>
+</header>
+
+<div class="foods">
+    <h1>Notre Menu</h1>
+    <p>Découvrez nos plats délicieux</p>
+    <div class="foods-list">
+        <div class="food-item">
+            <img src="images/plats1.jpg" alt="Plat 1">
+            <h2>Nom du Plat 1</h2>
+            <p>Description courte du plat 1. Prix: 15€</p>
+        </div>
+        <div class="food-item">
+            <img src="images/plats2.jpg" alt="Plat 2">
+            <h2>Nom du Plat 2</h2>
+            <p>Description courte du plat 2. Prix: 12€</p>
+        </div>
+        <div class="food-item">
+            <img src="images/plats3.jpg" alt="Plat 3">
+            <h2>Nom du Plat 3</h2>
+            <p>Description courte du plat 3. Prix: 18€</p>
+        </div>
+    </div>
+</div>
+
+
+{% if active_user.role == "admin" %}
+    <a class="btn" href="/menu/add/dish">Add a new Dish</a>
+    <a class="btn" href="/menu/remove/dish">Remove a Dish from the Menu</a>
+    <a class="btn" href="/menu/edit/dish">Edit a Dish from the Menu</a>
+{% endif %}
+
 
 {% endblock %}
