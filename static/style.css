@@ -227,3 +227,37 @@ footer p {
 .table tr:hover {
     background-color: #f1f1f1;
 }
+
+
+.foods {
+    margin: 50px 0;
+    padding: 0 10%;
+}
+
+.foods-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.food-item {
+    flex-basis: 30%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.food-item img {
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 10px;
+}
+
+.food-item h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.food-item p {
+    font-size: 16px;
+    color: #666;
+}
