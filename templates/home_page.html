@@ -6,7 +6,9 @@
 
 {% block content %}
 <div class="container">
-    <h1>Welcome to Le coin de Namur</h1>
+    <div>
+        <h1>Welcome to Le coin de Namur</h1>
+    </div>
     <div class="bloc">
         <h3>You have something to tell us?</h3>
         <p>Don't hesitate, leave us your feedback!</p>
@@ -21,12 +23,12 @@
                 <label for="users_password">Password: </label>
                 <input type="password" id="users_password" name="password" placeholder="123456789"/>
             </div>
-        
+
             <div class="form-group">
                 <label for="users_feedback">Feedback:</label>
-                <textarea id="users_feedback" name="users_feedback" placeholder="I love your Tiramisu!"></textarea>
+                <input type="text" id="users_feedback" name="users_feedback" placeholder="I love your Tiramisu!"/>
             </div>
-        
+
             <button class="btn" type="submit">Submit Feedback</button>
         </form>
     </div>

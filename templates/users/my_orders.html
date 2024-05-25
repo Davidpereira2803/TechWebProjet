@@ -1,29 +1,35 @@
 {% extends "empty_page.html" %}
-{% from "my_macro.html" import show_my_orders %}
 
 {% block title %}
 <title>Le coin de Namur -- My Orders</title>
 {% endblock %}
 
 {% block content %}
-<h2>My Orders</h2>
-<div class="menu-bloc">
-    <table>
-        <tr>
-            <th>Order ID</th>
-            <th>Client ID</th>
-            <th>Ordered Dishes</th>
-            <th>Order Price</th>
-            <th>Status</th>
-        </tr>
-        {% for order in orders %}
-            {% if order.clientid == user.id%}
-                {{ show_my_orders(order.orderid, order.clientid, order.dishes, order.orderprice, order.status) }}
-            {% endif %} 
-        {% endfor %}
-    </table>
-</div>
-
-
-
+<main>
+    <div class="container">
+        <h2>My Orders</h2>
+        <div class="menu-bloc">
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Client ID</th>
+                    <th>Ordered Dishes</th>
+                    <th>Order Price</th>
+                    <th>Status</th>
+                </tr>
+                {% for order in orders %}
+                    {% if order.clientid == user.id %}
+                        <tr>
+                            <td>{{ order.orderid }}</td>
+                            <td>{{ order.clientid }}</td>
+                            <td>{{ order.dishes }}</td>
+                            <td>{{ order.orderprice }}</td>
+                            <td>{{ order.status }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</main>
 {% endblock %}
