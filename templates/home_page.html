@@ -5,35 +5,37 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
 <div>
     <h1>Welcome to Le coin de Namur</h1>
 </div>
-<div class="bloc">
-    <h3>Who are we?</h3>
-    <p>Le coin de Namur is a local restaurant with plenty of local and international dishes. Its location offers a peaceful experience with a beautiful sight. Perfect for a little snack or even a family dinner, we are waiting for you and hope to see you as soon as possible!</p>
-</div>
-<div class="bloc">
-    <h3>You have something to tell us?</h3>
-    <p>Don't hesitate, leave us your feedback!</p>
+    <div class="bloc">
+        <h3>Who are we?</h3>
+        <p>Le coin de Namur is a local restaurant with plenty of local and international dishes. Its location offers a peaceful experience with a beautiful sight. Perfect for a little snack or even a family dinner, we are waiting for you and hope to see you as soon as possible!</p>
+    </div>
+    <div class="bloc">
+        <h3>You have something to tell us?</h3>
+        <p>Don't hesitate, leave us your feedback!</p>
 
-    <form action="/feedbacks/feedback" method="post">
+        <form action="/feedbacks/feedback" method="post">
 
-        <div>
-            <label for="users_email">Email:</label>
-            <input type="text" id="users_email" name="email" placeholder="yourname@email.com"/>
-        </div>
+            <div class="form-group">
+                <label for="users_email">Email:</label>
+                <input type="text" id="users_email" name="email" placeholder="yourname@email.com"/>
+            </div>
 
-        <div>
-            <label for="users_password">Password: </label>
-            <input type="password" id="users_password" name="password" placeholder="123456789"/>
-        </div>
-    
-        <div>
-            <label for="users_feedback">Feedback:</label>
-            <input type="text" id="users_feedback" name="users_feedback" placeholder="I love your Tiramisu!"/>
-        </div>
-    
-        <button class="btn" type="submit">Submit Feedback</button>
-    </form>
+            <div class="form-group">
+                <label for="users_password">Password: </label>
+                <input type="password" id="users_password" name="password" placeholder="123456789"/>
+            </div>
+        
+            <div class="form-group">
+                <label for="users_feedback">Feedback:</label>
+                <input type="text" id="users_feedback" name="users_feedback" placeholder="I love your Tiramisu!"/>
+            </div>
+        
+            <button class="btn" type="submit">Submit Feedback</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
