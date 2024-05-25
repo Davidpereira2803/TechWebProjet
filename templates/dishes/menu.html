@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-<h2>Welcome to our Restaurant! Take a look at our Menu!</h2>
+<div class="bloc">
+    <h2>Welcome to our Restaurant! Take a look at our Menu!</h2>
+</div>
 
 <div class="bloc">
     <div>
@@ -80,9 +82,11 @@
 
 
 {% if active_user.role == "admin" %}
+<div class="bloc">
     <a class="btn" href="/menu/add/dish">Add a new Dish</a>
     <a class="btn" href="/menu/remove/dish">Remove a Dish from the Menu</a>
     <a class="btn" href="/menu/edit/dish">Edit a Dish from the Menu</a>
+</div>
 {% endif %}
 
 
