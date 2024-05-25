@@ -48,11 +48,11 @@ def change_availability(table_id):
     with Session() as session:
         statement = select(Table).filter_by(tableid=table_id)
         table = session.scalars(statement).one()
-
+        
         if not table.available:
             table.clientid = 0
             table.day = ''
             table.time = ''
-            table.avaialble = True
+            table.available = True
             
         session.commit()

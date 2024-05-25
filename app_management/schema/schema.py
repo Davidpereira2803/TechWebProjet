@@ -25,10 +25,9 @@ class OrderSchema(BaseModel):
 class TableSchema(BaseModel):
     tableid: int
     clientid: int
-    available: int
+    available: bool
     day: str
     time: str
-    complete: bool
 
 class FeedbackSchema(BaseModel):
     feedbackid: int
