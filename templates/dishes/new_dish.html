@@ -8,25 +8,26 @@
 {% block content %}
 
 <h1>You have a new dish? Add it to the Menu!</h1>
+<div class="bloc">
+    <form action="/menu/add/dish" method="post">
 
-<form action="/menu/add/dish" method="post">
+        <div>
+            <label for="dishname">Dish name</label>
+            <input type="text" id="dishname" name="dishname" placeholder="Chicken Rice" />
+        </div>
 
-    <div>
-        <label for="dishname">Dish name</label>
-        <input type="text" id="dishname" name="dishname" placeholder="Chicken Rice" />
-    </div>
+        <div>
+            <label for="dishtype">Dish Type</label>
+            <input type="text" id="dishtype" name="dishtype" placeholder="Dessert" />
+        </div>
 
-    <div>
-        <label for="dishtype">Dish Type</label>
-        <input type="text" id="dishtype" name="dishtype" placeholder="Dessert" />
-    </div>
+        <div>
+            <label for="price">Dish Price</label>
+            <input type="text" id="price" name="price" placeholder="10" />
+        </div>
 
-    <div>
-        <label for="price">Dish Price</label>
-        <input type="text" id="price" name="price" placeholder="10" />
-    </div>
+        <button class="btn" type="submit">Add new Dish to the Menu</button>
 
-    <button class="btn" type="submit">Add new Dish to the Menu</button>
-
-</form>
+    </form>
+</div>
 {% endblock %}
