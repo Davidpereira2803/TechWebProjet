@@ -65,4 +65,3 @@ def change_user_information(new_firstname, new_name, new_email, user_email):
         user.email = new_email
 
         session.commit()
-
