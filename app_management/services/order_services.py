@@ -6,6 +6,7 @@ from app_management.sql.sql_models import Dish, Order
 from app_management.schema.schema import DishSchema, OrderSchema
 
 def get_orders():
+    """Fonction pour accèder aux commandes dans la base de donnée"""
     with Session() as session:
         statement = select(Order)
         orders = session.scalars(statement).all()
@@ -13,6 +14,7 @@ def get_orders():
     return orders
 
 def add_to_basket(dish_id, user):
+    """Fonction pour ajouter un plats à la commande de l'utilisateur"""
     with Session() as session:
         statement = select(Dish).filter_by(dishid= dish_id)
         dish = session.scalars(statement).one()
@@ -45,6 +47,7 @@ def add_to_basket(dish_id, user):
         session.commit()
 
 def cancel_order(user):
+    """Fonction pour annuler une commande -> supprimer la commande de la base de donnée"""
     with Session() as session:
         try:
             statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
@@ -59,6 +62,7 @@ def cancel_order(user):
             )
         
 def checkout(user):
+    """Fonction pour finaliser la commande -> mettre le paramètre complete comme True"""
     with Session() as session:
         try:
             statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
@@ -72,6 +76,7 @@ def checkout(user):
             )
 
 def remove_from_basket(dish_id, user):
+    """Fonction pour enlèver un plat de la commande"""
     with Session() as session:
         try:
             statement = select(Order).where(Order.clientid == user.id, Order.complete == False)
@@ -90,6 +95,7 @@ def remove_from_basket(dish_id, user):
             )
 
 def mark_as_complete(order_id):
+    """Fonction pour indiquer que la commande est prête"""
     with Session() as session:
         statement = select(Order).filter_by(orderid= order_id)
         order = session.scalars(statement).one()

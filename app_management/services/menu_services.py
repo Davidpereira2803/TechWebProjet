@@ -7,6 +7,7 @@ from app_management.schema.schema import DishSchema
 from app_management.services import users_services
 
 def get_menu():
+    """Fonction pour accèder aux plats dans la base de donnée"""
     with Session() as session: 
         statement = select(Dish)
         menu = session.scalars(statement).all()
@@ -20,6 +21,7 @@ def get_menu():
     ]
 
 def add_dish(new: DishSchema):
+    """Fonction pour ajouter un plat à la base de donnée"""
     with Session() as session:
         statement = select(Dish)
         menu = session.scalars(statement).all()
@@ -34,6 +36,7 @@ def add_dish(new: DishSchema):
     return dish
 
 def remove_dish_by_id(id_to_delete):
+    """Fonction pour supprimer un plat de la base de donnée"""
     with Session() as session:
         try:
             statement = select(Dish).filter_by(dishid= id_to_delete)
@@ -47,6 +50,10 @@ def remove_dish_by_id(id_to_delete):
             )
 
 def edit_dish_by_id(id_to_edit, updated_dish):
+    """
+    Fonction pour editer un plat de la base de donnée avec l'id == id_to_edit
+    Elle change le nom, le type et le prix
+    """
     with Session() as session:
         try:
             statement = select(Dish).filter_by(dishid= id_to_edit)

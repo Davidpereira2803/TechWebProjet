@@ -6,13 +6,17 @@ from app_management.db_manager import Session
 from app_management.sql.sql_models import Table
 
 def book_table(people_count, day, time, user):
+    """
+    Fonction pour réserver une table, elle controle si une table est disponible pour le nombre de personnes,
+    passer comme paramètre.
+    """
     with Session() as session:
         statement = select(Table).where(
             Table.available == True,
             or_(
                 Table.tablecapacity == people_count, 
                 Table.tablecapacity > people_count
-                )
+                ),
         ).order_by(Table.tablecapacity).limit(1)
         table = session.scalars(statement).one()
 
@@ -30,12 +34,17 @@ def book_table(people_count, day, time, user):
         session.commit()
 
 def get_tables():
+    """Fonction pour accèder à toutes les tables dans la base de donnée"""
     with Session() as session:
         statement = select(Table)
         tables = session.scalars(statement).all()
     return tables
 
 def change_availability(table_id):
+    """
+    Fonction pour changer la disponibilité de la table avec l'id == table_id.
+    La fonction change le paramètre available à True et mets le jour et heure à vide et le clientid à 0
+    """
     with Session() as session:
         statement = select(Table).filter_by(tableid=table_id)
         table = session.scalars(statement).one()
